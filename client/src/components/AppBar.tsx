@@ -4,8 +4,11 @@ import { Button } from "./ui/button";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import ThemeToggle from "./ThemeToggle";
+import { signIn, signOut, useSession } from "next-auth/react";
 
 export function AppBar() {
+  const { data: session, status } = useSession();
+
   return (
     <div className="bg-black">
       <motion.header
@@ -34,27 +37,35 @@ export function AppBar() {
             <div className="flex items-center gap-4">
               <ThemeToggle />
 
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <Button
-                  variant="default"
-                  size="sm"
-                  className="relative overflow-hidden bg-gradient-to-r from-neutral-800 to-neutral-900 text-white dark:from-neutral-700 dark:to-neutral-800 border border-neutral-600 dark:border-neutral-700 rounded-lg shadow-md shadow-neutral-800/20 dark:shadow-black/30 px-4 py-2 font-medium tracking-wide transition-all duration-300 ease-in-out hover:shadow-lg hover:scale-[1.02] hover:from-neutral-700 hover:to-neutral-900 dark:hover:from-neutral-600 dark:hover:to-neutral-750"
-                  asChild
+              {status === "loading" ? null : !session ? (
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
                 >
-                  <span>Sign In</span>
-                </Button>
-              </motion.div>
-              <Button
-                variant="ghost"
-                size="sm"
-                className="dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-800 transition"
-                asChild
-              >
-                <Link href="/dashboard">Join the waitlist </Link>
-              </Button>
+                  <Button
+                    variant="default"
+                    size="sm"
+                    className="cursor-pointer relative overflow-hidden bg-gradient-to-r from-neutral-800 to-neutral-900 text-white dark:from-neutral-700 dark:to-neutral-800 border border-neutral-600 dark:border-neutral-700 rounded-lg shadow-md shadow-neutral-800/20 dark:shadow-black/30 px-4 py-2 font-medium tracking-wide transition-all duration-300 ease-in-out hover:shadow-lg hover:scale-[1.02] hover:from-neutral-700 hover:to-neutral-900 dark:hover:from-neutral-600 dark:hover:to-neutral-750"
+                    onClick={() => signIn("github")}
+                  >
+                    <span>Sign In</span>
+                  </Button>
+                </motion.div>
+              ) : (
+                <>
+                  <span className="text-sm font-mono text-neutral-700 dark:text-neutral-300">
+                    {session.user?.name || session.user?.email}
+                  </span>
+                  <Button
+                    variant="default"
+                    size="sm"
+                    className="cursor-pointer relative overflow-hidden bg-gradient-to-r from-neutral-800 to-neutral-900 text-white dark:from-neutral-700 dark:to-neutral-800 border border-neutral-600 dark:border-neutral-700 rounded-lg shadow-md shadow-neutral-800/20 dark:shadow-black/30 px-4 py-2 font-medium tracking-wide transition-all duration-300 ease-in-out hover:shadow-lg hover:scale-[1.02] hover:from-neutral-700 hover:to-neutral-900 dark:hover:from-neutral-600 dark:hover:to-neutral-750"
+                    onClick={() => signOut({ callbackUrl: "/" })}
+                  >
+                    <span>Sign Out</span>
+                  </Button>
+                </>
+              )}
             </div>
           </div>
         </motion.div>
