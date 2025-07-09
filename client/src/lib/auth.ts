@@ -7,6 +7,7 @@ export const NEXT_AUTH_CONFIG: NextAuthOptions = {
     GithubProvider({
       clientId: process.env.GITHUB_ID!,
       clientSecret: process.env.GITHUB_SECRET!,
+      allowDangerousEmailAccountLinking: true,
     }),
   ],
   secret: process.env.NEXTAUTH_SECRET,
@@ -28,6 +29,9 @@ export const NEXT_AUTH_CONFIG: NextAuthOptions = {
         token.accessToken = account.access_token;
         token.role = "user"; // default role or from DB
 
+        // Fix: Add email to token from GitHub profile
+        token.email = githubProfile.email;
+
         console.log("🔑 JWT Token Created:", token);
       }
       return token;
@@ -38,8 +42,10 @@ export const NEXT_AUTH_CONFIG: NextAuthOptions = {
       session.user.jwtToken = token.accessToken!;
       session.user.role = token.role!;
       session.user.avatarUrl = token.avatarUrl;
-      session.user.email = session.user.email!;
-      session.user.name = session.user.name!;
+
+      // Fix: Use email from token instead of session.user.email
+      session.user.email = token.email || session.user.email || "";
+      session.user.name = token.name || session.user.name || "";
 
       console.log("📦 Session Created:", session);
 
