@@ -16,9 +16,9 @@ datasource db {
 model User {
   id          String       @id @default(uuid())
   username    String
-  email       String?
+  email       String?      @unique
   avatarUrl   String?
-  githubId    String
+  githubId    String?
   logs        Log[]
   createdAt   DateTime     @default(now())
   UserMetrics UserMetrics?
