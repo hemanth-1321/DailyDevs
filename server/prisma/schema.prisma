@@ -14,14 +14,14 @@ datasource db {
 }
 
 model User {
-  id          String        @id @default(uuid())
+  id          String       @id @default(uuid())
   username    String
   email       String?
   avatarUrl   String?
   githubId    String
   logs        Log[]
-  createdAt   DateTime      @default(now())
-  UserMetrics UserMetrics[]
+  createdAt   DateTime     @default(now())
+  UserMetrics UserMetrics?
 }
 
 model Log {
@@ -36,7 +36,7 @@ model Log {
 
 model UserMetrics {
   id            String @id @default(uuid())
-  userId        String
+  userId        String @unique
   user          User   @relation(fields: [userId], references: [id])
   totalLogs     Int    @default(0)
   currentStreak Int    @default(0)
