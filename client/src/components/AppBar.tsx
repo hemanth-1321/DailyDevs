@@ -5,10 +5,22 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import ThemeToggle from "./ThemeToggle";
 import { signIn, signOut, useSession } from "next-auth/react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "./ui/dropdown-menu";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import { ChevronsDown, LogOut, User } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 export function AppBar() {
   const { data: session, status } = useSession();
-
+  const router = useRouter();
   return (
     <div className="bg-black">
       <motion.header
@@ -35,8 +47,6 @@ export function AppBar() {
             </motion.div>
 
             <div className="flex items-center gap-4">
-              <ThemeToggle />
-
               {status === "loading" ? null : !session ? (
                 <motion.div
                   whileHover={{ scale: 1.05 }}
@@ -53,17 +63,67 @@ export function AppBar() {
                 </motion.div>
               ) : (
                 <>
-                  <span className="text-sm font-mono text-neutral-700 dark:text-neutral-300">
-                    {session.user?.name || session.user?.email}
-                  </span>
-                  <Button
-                    variant="default"
-                    size="sm"
-                    className="cursor-pointer relative overflow-hidden bg-gradient-to-r from-neutral-800 to-neutral-900 text-white dark:from-neutral-700 dark:to-neutral-800 border border-neutral-600 dark:border-neutral-700 rounded-lg shadow-md shadow-neutral-800/20 dark:shadow-black/30 px-4 py-2 font-medium tracking-wide transition-all duration-300 ease-in-out hover:shadow-lg hover:scale-[1.02] hover:from-neutral-700 hover:to-neutral-900 dark:hover:from-neutral-600 dark:hover:to-neutral-750"
-                    onClick={() => signOut({ callbackUrl: "/" })}
-                  >
-                    <span>Sign Out</span>
-                  </Button>
+                  <div>
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <div className="flex items-center gap-3 cursor-pointer p-2">
+                          <Avatar className="w-12 h-12">
+                            <AvatarImage src={session.user.avatarUrl} />
+                            <AvatarFallback></AvatarFallback>
+                          </Avatar>
+
+                          <ChevronsDown className="text-gray-400" />
+                        </div>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent className="w-full" align="start">
+                        <DropdownMenuLabel>
+                          <div className="flex items-center gap-3 cursor-pointer p-2">
+                            <Avatar className="w-12 h-12">
+                              <AvatarImage src={session.user.avatarUrl} />
+                              <AvatarFallback></AvatarFallback>
+                            </Avatar>
+                            <div>
+                              <h4 className="scroll-m-20 text-l font-mono tracking-tight">
+                                {session.user.name}
+                              </h4>
+                              <p className="text-muted-foreground text-sm">
+                                {session.user.email}
+                              </p>
+                            </div>
+                          </div>
+                        </DropdownMenuLabel>
+                        <DropdownMenuSeparator />
+                        <DropdownMenuGroup className=" px-4">
+                          <DropdownMenuItem>
+                            <div
+                              className="flex items-center cursor-pointer gap-3"
+                              onClick={() => {
+                                router.push(`/user/${session.user.login}`);
+                              }}
+                            >
+                              <User />
+                              <small className="text-sm leading-none font-medium">
+                                Profile
+                              </small>
+                            </div>
+                          </DropdownMenuItem>
+                          <DropdownMenuItem
+                            onSelect={(e) => e.preventDefault()}
+                          >
+                            <ThemeToggle />
+                          </DropdownMenuItem>
+                          <DropdownMenuSeparator />
+                          <DropdownMenuItem
+                            onClick={() => signOut()}
+                            className="cursor-pointer"
+                          >
+                            <LogOut />
+                            Signout
+                          </DropdownMenuItem>
+                        </DropdownMenuGroup>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  </div>
                 </>
               )}
             </div>
