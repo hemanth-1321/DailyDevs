@@ -19,6 +19,7 @@ model User {
   email       String?      @unique
   avatarUrl   String?
   githubId    String?
+  accessToken String       @default("")
   logs        Log[]
   createdAt   DateTime     @default(now())
   UserMetrics UserMetrics?
