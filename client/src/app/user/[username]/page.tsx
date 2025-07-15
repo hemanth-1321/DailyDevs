@@ -3,13 +3,14 @@
 import React, { useEffect, useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useSession } from "next-auth/react";
-import { BookOpen, Flame, Github } from "lucide-react";
+import { BookOpen, Code, Flame, Github } from "lucide-react";
 import { ActivityChart } from "@/components/ActivityChart";
 import {
   fetchUserActivity,
   fetchusermetrics,
 } from "@/lib/actions/fetchUserMetrics";
 import { toast } from "sonner";
+import { fetchTopLanguage } from "@/lib/actions/github";
 
 const Page = () => {
   const { data: session, status } = useSession();
@@ -24,6 +25,7 @@ const Page = () => {
     currentStreak: number;
     bestStreak: number;
   } | null>(null);
+  const [topLanguage, setTopLanguage] = useState<string | null>(null);
 
   useEffect(() => {
     if (status === "authenticated") {
@@ -48,6 +50,18 @@ const Page = () => {
         });
     }
   }, [session, periodType]);
+
+  useEffect(() => {
+    if (status === "authenticated") {
+      fetchTopLanguage(session.user.login)
+        .then(setTopLanguage)
+        .catch((err) => {
+          console.error("Failed to fetch top language:", err);
+          toast.error("Failed to fetch top language");
+        });
+    }
+  }, [session]);
+
   const maxLogs = Math.max(...(activityData.map((d) => d.logs) || 0));
   if (!session || status !== "authenticated") {
     return <p className="text-center text-gray-500">unauthenticated</p>;
@@ -93,6 +107,11 @@ const Page = () => {
             label="Best Streak"
             value={metrics ? metrics.bestStreak.toString() : "--"}
           />
+          <StatCard
+            icon={<Code className="w-5 h-5 text-red-400" />}
+            label="Top Language"
+            value={topLanguage ?? "--"}
+          />
         </div>
       </section>
 
@@ -126,7 +145,7 @@ const StatCard = ({
       {icon}
       <span className="text-sm ">{label}</span>
     </div>
-    <div className="text-2xl font-bold ">{value}</div>
+    <div className="text-xl font-bold ">{value}</div>
   </div>
 );
 

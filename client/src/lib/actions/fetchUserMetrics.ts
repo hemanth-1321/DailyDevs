@@ -20,7 +20,7 @@ export const fetchUserActivity = async (githubId: string, period: string) => {
     );
     return res.data;
   } catch (error) {
-    console.error("Error fetching user activity:", error);
+    console.error("Error fetching user activity :", error);
     throw error;
   }
 };
