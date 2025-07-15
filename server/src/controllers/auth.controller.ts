@@ -39,13 +39,3 @@ export const AuthController = async ({
     throw error;
   }
 };
-
-
-// (async () => {
-//   await AuthController({
-//     username: "jerusha",
-//     email: "jerusha@gmail.com",
-//     avatarUrl: "https://github.com/jerusha.png",
-//     githubId: "jerusha_1431",
-//   });
-// })();

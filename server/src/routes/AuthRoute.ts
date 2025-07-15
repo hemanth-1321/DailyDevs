@@ -1,6 +1,7 @@
 import express from "express";
 import { z } from "zod";
 import { db } from "../config/db";
+import jwt from "jsonwebtoken";
 import { AuthController } from "../controllers/auth.controller";
 
 const router = express.Router();
@@ -17,23 +18,56 @@ router.post("/register", async (req, res) => {
   try {
     const parsed = registerSchema.parse(req.body);
 
-    // Check if email is provided and already exists
+    // Check if user already exists
     if (parsed.email) {
       const existingUser = await db.user.findUnique({
         where: { email: parsed.email },
       });
 
       if (existingUser) {
-        return res.status(400).json({ error: "Email already in use" });
+        const jwtToken = jwt.sign(
+          {
+            id: existingUser.id,
+            email: existingUser.email,
+          },
+          process.env.JWT_SECRET!,
+          { expiresIn: "7d" }
+        );
+
+        res.cookie("token", jwtToken, {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === "production",
+          sameSite: "strict",
+          maxAge: 7 * 24 * 60 * 60 * 1000,
+        });
+
+        return res.status(200).json({ user: existingUser });
       }
     }
 
-    // Call AuthController and await the result
+    // Create new user
     const newUser = await AuthController({
       username: parsed.username,
       email: parsed.email,
       avatarUrl: parsed.avatarUrl,
       githubId: parsed.githubId,
+    });
+
+    const jwtToken = jwt.sign(
+      {
+        id: newUser.id,
+        email: newUser.email,
+      },
+      process.env.JWT_SECRET!,
+      { expiresIn: "7d" }
+    );
+    console.log("jwt token", jwtToken);
+
+    res.cookie("token", jwtToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+      maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
     res.status(201).json({ user: newUser });

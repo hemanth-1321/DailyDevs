@@ -4,7 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { AppBar } from "@/components/AppBar";
 import { Providers } from "./providers";
-
+import { Toaster } from "@/components/ui/sonner";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -40,6 +40,7 @@ export default function RootLayout({
             <AppBar />
             {children}
           </ThemeProvider>
+          <Toaster />
         </Providers>
       </body>
     </html>

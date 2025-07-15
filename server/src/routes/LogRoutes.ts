@@ -1,9 +1,14 @@
 import express from "express";
 import { createLogAndUpdateStreak } from "../controllers/Log.controller";
+import { middleware } from "../middleware";
 
 const router = express.Router();
-router.post("/log", async (req, res) => {
-  const { userId, content } = req.body;
+router.post("/log", middleware, async (req, res) => {
+  const userId = req.user?.id;
+  if (!userId) {
+    return res.status(401).json({ error: "User ID missing from token" });
+  }
+  const { content } = req.body;
 
   try {
     const newLog = await createLogAndUpdateStreak(userId, content);
