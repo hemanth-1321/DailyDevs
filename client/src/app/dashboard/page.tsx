@@ -5,21 +5,13 @@ import { Button } from "@/components/ui/button";
 import axios from "axios";
 import { BACKEND_URL } from "@/lib/config";
 import { toast } from "sonner";
+import { useSession } from "next-auth/react";
 
 const Page = () => {
-  useEffect(() => {
-    axios
-      .get("http://localhost:8000/api/check", { withCredentials: true })
-      .then((res) => {
-        console.log("Response:", res.data);
-        toast(res.data);
-      })
-      .catch((err) => {
-        console.error("Error:", err);
-      });
-  }, []);
   const [content, setContent] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
+  const { data: session } = useSession();
+  console.log(`id ${session?.user.id}`);
   const handleSubmit = async () => {
     try {
       setLoading(true);

@@ -5,7 +5,10 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useSession } from "next-auth/react";
 import { BookOpen, Flame, Github } from "lucide-react";
 import { ActivityChart } from "@/components/ActivityChart";
-import { fetchusermetrics } from "@/lib/actions/fetchUserMetrics";
+import {
+  fetchUserActivity,
+  fetchusermetrics,
+} from "@/lib/actions/fetchUserMetrics";
 import { toast } from "sonner";
 
 const Page = () => {
@@ -13,6 +16,9 @@ const Page = () => {
   const [periodType, setPeriodType] = useState<"weekly" | "monthly" | "yearly">(
     "monthly"
   );
+  const [activityData, setActivityData] = useState<
+    { period: string; logs: number }[]
+  >([]);
   const [metrics, setMetrics] = useState<{
     totalLogs: number;
     currentStreak: number;
@@ -28,38 +34,21 @@ const Page = () => {
           toast.error("Failed to fetch metrics");
         });
     }
-  }, []);
-  const mockData = {
-    weekly: [
-      { period: "Mon", logs: 3, commits: 12 },
-      { period: "Tue", logs: 2, commits: 8 },
-      { period: "Wed", logs: 4, commits: 15 },
-      { period: "Thu", logs: 1, commits: 6 },
-      { period: "Fri", logs: 5, commits: 22 },
-      { period: "Sat", logs: 2, commits: 9 },
-      { period: "Sun", logs: 1, commits: 4 },
-    ],
-    monthly: [
-      { period: "Jan", logs: 12, commits: 45 },
-      { period: "Feb", logs: 8, commits: 32 },
-      { period: "Mar", logs: 15, commits: 58 },
-      { period: "Apr", logs: 22, commits: 73 },
-      { period: "May", logs: 18, commits: 41 },
-      { period: "Jun", logs: 14, commits: 39 },
-      { period: "Jul", logs: 19, commits: 52 },
-    ],
-    yearly: [
-      { period: "2021", logs: 89, commits: 298 },
-      { period: "2022", logs: 134, commits: 445 },
-      { period: "2023", logs: 187, commits: 623 },
-      { period: "2024", logs: 156, commits: 512 },
-    ],
-  };
+  }, [session]);
 
-  const activityData = mockData[periodType];
-  const maxLogs = Math.max(...activityData.map((d) => d.logs));
-  const maxCommits = Math.max(...activityData.map((d) => d.commits));
-
+  useEffect(() => {
+    if (status === "authenticated") {
+      fetchUserActivity(session.user.login, periodType)
+        .then((data) => {
+          setActivityData(data);
+        })
+        .catch((err) => {
+          console.error("Failed to fetch metrics:", err);
+          toast.error("Failed to fetch metrics");
+        });
+    }
+  }, [session, periodType]);
+  const maxLogs = Math.max(...(activityData.map((d) => d.logs) || 0));
   if (!session || status !== "authenticated") {
     return <p className="text-center text-gray-500">unauthenticated</p>;
   }
@@ -104,11 +93,6 @@ const Page = () => {
             label="Best Streak"
             value={metrics ? metrics.bestStreak.toString() : "--"}
           />
-          <StatCard
-            icon={<Github className="w-5 h-5 text-green-400" />}
-            label="Total Commits"
-            value="658"
-          />
         </div>
       </section>
 
@@ -120,7 +104,6 @@ const Page = () => {
           }`}
           data={activityData}
           maxLogs={maxLogs}
-          maxCommits={maxCommits}
           periodType={periodType}
           setPeriodType={setPeriodType}
         />

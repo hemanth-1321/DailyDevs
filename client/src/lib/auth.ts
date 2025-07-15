@@ -1,8 +1,6 @@
 import { NextAuthOptions } from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 import { JWT } from "next-auth/jwt";
-import axios from "axios";
-import { BACKEND_URL } from "./config";
 export const NEXT_AUTH_CONFIG: NextAuthOptions = {
   providers: [
     GithubProvider({
@@ -55,6 +53,7 @@ export const NEXT_AUTH_CONFIG: NextAuthOptions = {
       console.log("🔐 Sign In - User:", user);
       console.log("🔐 Sign In - Account:", account);
       console.log("🔐 Sign In - Profile:", profile);
+
       return true;
     },
   },

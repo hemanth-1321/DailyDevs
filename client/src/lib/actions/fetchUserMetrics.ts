@@ -12,3 +12,15 @@ export const fetchusermetrics = async () => {
     throw error;
   }
 };
+
+export const fetchUserActivity = async (githubId: string, period: string) => {
+  try {
+    const res = await axios.get(
+      `${BACKEND_URL}/api/activity/${githubId}/${period}`
+    );
+    return res.data;
+  } catch (error) {
+    console.error("Error fetching user activity:", error);
+    throw error;
+  }
+};

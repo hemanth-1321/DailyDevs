@@ -29,7 +29,7 @@ export const AuthController = async ({
         username,
         email: email ?? null,
         avatarUrl: avatarUrl ?? null,
-        githubId: githubId ?? null,
+        githubId: githubId!,
       },
     });
 

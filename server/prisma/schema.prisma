@@ -18,7 +18,7 @@ model User {
   username    String
   email       String?      @unique
   avatarUrl   String?
-  githubId    String?
+  githubId    String       @unique
   accessToken String       @default("")
   logs        Log[]
   createdAt   DateTime     @default(now())
@@ -36,12 +36,13 @@ model Log {
 }
 
 model UserMetrics {
-  id            String @id @default(uuid())
-  userId        String @unique
-  user          User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-  totalLogs     Int    @default(0)
-  currentStreak Int    @default(0)
-  bestStreak    Int    @default(0)
-  totalCommits  Int?   @default(0)
+  id            String   @id @default(uuid())
+  userId        String   @unique
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  totalLogs     Int      @default(0)
+  currentStreak Int      @default(0)
+  bestStreak    Int      @default(0)
+  totalCommits  Int?     @default(0)
   commitHeatmap Json?
+  createdAt     DateTime @default(now())
 }
