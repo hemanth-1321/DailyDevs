@@ -40,6 +40,7 @@ router.post("/register", async (req, res) => {
           sameSite: "strict",
           maxAge: 7 * 24 * 60 * 60 * 1000,
         });
+        console.log("Set-Cookie:", res.getHeaders()["set-cookie"]);
 
         return res.status(200).json({ user: existingUser });
       }
@@ -65,11 +66,11 @@ router.post("/register", async (req, res) => {
 
     res.cookie("token", jwtToken, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
+      secure: false,
+      sameSite: "lax",
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
-
+    console.log("✅ Set-Cookie Header:", res.getHeader("Set-Cookie"));
     res.status(201).json({ user: newUser });
   } catch (error) {
     if (error instanceof z.ZodError) {

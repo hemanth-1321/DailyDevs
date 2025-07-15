@@ -56,7 +56,9 @@ export function AppBar() {
                     variant="default"
                     size="sm"
                     className="cursor-pointer relative overflow-hidden bg-gradient-to-r from-neutral-800 to-neutral-900 text-white dark:from-neutral-700 dark:to-neutral-800 border border-neutral-600 dark:border-neutral-700 rounded-lg shadow-md shadow-neutral-800/20 dark:shadow-black/30 px-4 py-2 font-medium tracking-wide transition-all duration-300 ease-in-out hover:shadow-lg hover:scale-[1.02] hover:from-neutral-700 hover:to-neutral-900 dark:hover:from-neutral-600 dark:hover:to-neutral-750"
-                    onClick={() => signIn("github")}
+                    onClick={() =>
+                      signIn("github", { callbackUrl: "/register" })
+                    }
                   >
                     <span>Sign In</span>
                   </Button>

@@ -88,9 +88,9 @@ export const createLogAndUpdateStreak = async (
   }
 };
 
-(async () => {
-  await createLogAndUpdateStreak(
-    "9b70198b-4194-4994-81a9-167fd5797f60",
-    "some random log"
-  );
-})();
+// (async () => {
+//   await createLogAndUpdateStreak(
+//     "9b70198b-4194-4994-81a9-167fd5797f60",
+//     "some random log"
+//   );
+// })();

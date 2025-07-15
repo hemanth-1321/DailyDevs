@@ -19,6 +19,10 @@ app.get("/", (req, res) => {
 });
 app.use("/api/auth", AuthRoute);
 app.use("/api/logs", LogRoutes);
+app.get("/api/check", (req, res) => {
+  console.log("Cookies on request:", req.cookies);
+  res.send("Check console for cookies");
+});
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

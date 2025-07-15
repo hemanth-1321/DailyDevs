@@ -1,17 +1,34 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useSession } from "next-auth/react";
 import { BookOpen, Flame, Github } from "lucide-react";
 import { ActivityChart } from "@/components/ActivityChart";
+import { fetchusermetrics } from "@/lib/actions/fetchUserMetrics";
+import { toast } from "sonner";
 
 const Page = () => {
   const { data: session, status } = useSession();
   const [periodType, setPeriodType] = useState<"weekly" | "monthly" | "yearly">(
     "monthly"
   );
+  const [metrics, setMetrics] = useState<{
+    totalLogs: number;
+    currentStreak: number;
+    bestStreak: number;
+  } | null>(null);
 
+  useEffect(() => {
+    if (status === "authenticated") {
+      fetchusermetrics()
+        .then(setMetrics)
+        .catch((err) => {
+          console.error("Failed to fetch metrics:", err);
+          toast.error("Failed to fetch metrics");
+        });
+    }
+  }, []);
   const mockData = {
     weekly: [
       { period: "Mon", logs: 3, commits: 12 },
@@ -75,17 +92,17 @@ const Page = () => {
           <StatCard
             icon={<BookOpen className="w-5 h-5 text-blue-400" />}
             label="Total Logs"
-            value="10"
+            value={metrics ? metrics.totalLogs.toString() : "--"}
           />
           <StatCard
             icon={<Flame className="w-5 h-5 text-orange-400" />}
             label="Current Streak"
-            value="30"
+            value={metrics ? metrics.currentStreak.toString() : "--"}
           />
           <StatCard
             icon={<Flame className="w-5 h-5 text-red-400" />}
             label="Best Streak"
-            value="20"
+            value={metrics ? metrics.bestStreak.toString() : "--"}
           />
           <StatCard
             icon={<Github className="w-5 h-5 text-green-400" />}

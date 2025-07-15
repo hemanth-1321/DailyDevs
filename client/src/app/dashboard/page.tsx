@@ -1,11 +1,23 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import axios from "axios";
 import { BACKEND_URL } from "@/lib/config";
 import { toast } from "sonner";
+
 const Page = () => {
+  useEffect(() => {
+    axios
+      .get("http://localhost:8000/api/check", { withCredentials: true })
+      .then((res) => {
+        console.log("Response:", res.data);
+        toast(res.data);
+      })
+      .catch((err) => {
+        console.error("Error:", err);
+      });
+  }, []);
   const [content, setContent] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const handleSubmit = async () => {
