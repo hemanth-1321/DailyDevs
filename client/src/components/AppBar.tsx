@@ -45,7 +45,20 @@ export function AppBar() {
                 <span className=" font-bold font-mono text-xl ">DevLogs</span>
               </Link>
             </motion.div>
-
+            <div className="flex gap-4">
+              <Link
+                href="/dashboard"
+                className="flex items-center space-x-2 transition-opacity hover:opacity-90"
+              >
+                <span className=" font-bold font-mono text-xl ">Dashboard</span>
+              </Link>
+              <Link
+                href="/dashboard"
+                className="flex items-center space-x-2 transition-opacity hover:opacity-90"
+              >
+                <span className=" font-bold font-mono text-xl ">Dashboard</span>
+              </Link>
+            </div>
             <div className="flex items-center gap-4">
               {status === "loading" ? null : !session ? (
                 <motion.div

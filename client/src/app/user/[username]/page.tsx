@@ -11,7 +11,7 @@ import {
 } from "@/lib/actions/fetchUserMetrics";
 import { toast } from "sonner";
 import { fetchTopLanguage } from "@/lib/actions/github";
-
+import { useStreakStore } from "@/lib/store/streakStore";
 const Page = () => {
   const { data: session, status } = useSession();
   const [periodType, setPeriodType] = useState<"weekly" | "monthly" | "yearly">(
@@ -26,11 +26,19 @@ const Page = () => {
     bestStreak: number;
   } | null>(null);
   const [topLanguage, setTopLanguage] = useState<string | null>(null);
-
+  const setStreaks = useStreakStore((state) => state.setStreaks);
   useEffect(() => {
     if (status === "authenticated") {
       fetchusermetrics()
-        .then(setMetrics)
+        .then((data) => {
+          console.log("Fetched metrics:", data);
+          setMetrics(data);
+          setStreaks({
+            totalLogs: data.totalLogs,
+            currentStreak: data.currentStreak,
+            bestStreak: data.bestStreak,
+          });
+        })
         .catch((err) => {
           console.error("Failed to fetch metrics:", err);
           toast.error("Failed to fetch metrics");

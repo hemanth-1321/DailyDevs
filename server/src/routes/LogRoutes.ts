@@ -9,10 +9,19 @@ router.post("/log", middleware, async (req, res) => {
   if (!userId) {
     return res.status(401).json({ error: "User ID missing from token" });
   }
-  const { content } = req.body;
-
+  const { content, repositoryUrl, repository } = req.body;
+  if (!content) {
+    return res.status(401).json({
+      message: "no content found",
+    });
+  }
   try {
-    const newLog = await createLogAndUpdateStreak(userId, content);
+    const newLog = await createLogAndUpdateStreak(
+      userId,
+      content,
+      repositoryUrl,
+      repository
+    );
     res.status(200).json(newLog);
   } catch (error) {
     res.status(500).json({

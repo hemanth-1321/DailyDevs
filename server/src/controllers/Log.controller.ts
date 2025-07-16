@@ -2,7 +2,9 @@ import { db } from "../config/db";
 
 export const createLogAndUpdateStreak = async (
   userId: string,
-  content: string
+  content: string,
+  repositoryUrl: string,
+  repository: string
 ) => {
   try {
     const now = new Date();
@@ -25,6 +27,8 @@ export const createLogAndUpdateStreak = async (
       data: {
         userId,
         content,
+        repository,
+        repositoryUrl,
       },
     });
 
