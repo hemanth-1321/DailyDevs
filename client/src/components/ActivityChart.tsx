@@ -60,20 +60,20 @@ export const ActivityChart: React.FC<ActivityChartProps> = ({
   }));
 
   return (
-    <Card className="dark:bg-slate-800/50 backdrop-blur-sm border border-slate-700/50">
+    <Card className="bg-gray-200 dark:bg-slate-800/50 backdrop-blur-sm ">
       <CardHeader className="flex flex-col md:flex-row md:items-center md:justify-between mb-4 space-y-4 md:space-y-0">
         <CardTitle className="flex items-center">
           <BarChart3 className="w-5 h-5 mr-2 text-blue-400" />
           {title}
         </CardTitle>
 
-        <div className="flex gap-2 bg-slate-700/30 rounded-lg p-1">
+        <div className="flex gap-2 dark:bg-slate-700/30 rounded-lg p-1">
           {(["weekly", "monthly", "yearly"] as const).map((period) => (
             <Button
               key={period}
               variant="ghost"
               size="sm"
-              className={`text-xs font-medium ${
+              className={`cursor-pointer text-xs font-medium ${
                 periodType === period
                   ? "bg-blue-500/20 text-blue-400 shadow shadow-blue-500/10"
                   : "text-slate-400 hover:text-white hover:bg-slate-600/30"

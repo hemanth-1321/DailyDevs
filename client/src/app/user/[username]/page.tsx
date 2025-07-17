@@ -148,7 +148,7 @@ const StatCard = ({
   label: string;
   value: string;
 }) => (
-  <div className="bg-white dark:bg-slate-800/50 backdrop-blur-sm rounded-2xl p-4 border border-gray-200 dark:border-slate-700/50">
+  <div className="bg-gray-200 dark:bg-slate-800/50 backdrop-blur-sm rounded-2xl p-4 border border-gray-200 dark:border-slate-700/50">
     <div className="flex items-center space-x-2 mb-2">
       {icon}
       <span className="text-sm ">{label}</span>
