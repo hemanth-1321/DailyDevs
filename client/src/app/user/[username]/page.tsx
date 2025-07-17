@@ -76,7 +76,7 @@ const Page = () => {
   }
 
   return (
-    <div className="flex-1 w-full max-w-[88rem] mx-auto px-4 sm:px-6 lg:px-30 mt-30 ">
+    <div className="flex-1 w-full max-w-[88rem] mx-auto px-4 sm:px-6 lg:px-30 mt-30 h-screen">
       {/* User Header Section */}
       <section>
         <div className="flex flex-col sm:flex-row gap-4 items-center sm:items-start">
