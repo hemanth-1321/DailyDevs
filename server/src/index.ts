@@ -21,7 +21,6 @@ app.get("/", (req, res) => {
 });
 app.use("/api/auth", AuthRoute);
 app.use("/api/logs", LogRoutes);
-app.use("/api/logs", LogRoutes);
 app.use("/api/activity", ActivityRoute);
 
 app.get("/api/check", (req, res) => {

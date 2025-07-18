@@ -59,18 +59,18 @@ export function AppBar() {
                 <p className="text-muted-foreground text-sm">Dashboard</p>
               </Link>
               <Link
-                href="/leadership"
-                className="flex items-center space-x-2 transition-opacity hover:opacity-90"
-              >
-                <Trophy className="w-5 h-5" />
-                <p className="text-muted-foreground text-sm">Leadership</p>
-              </Link>
-              <Link
                 href="/logs"
                 className="flex items-center space-x-2 transition-opacity hover:opacity-90"
               >
                 <ScrollText className="w-5 h-5" />
                 <p className="text-muted-foreground text-sm">Logs</p>
+              </Link>
+              <Link
+                href="/leadership"
+                className="flex items-center space-x-2 transition-opacity hover:opacity-90"
+              >
+                <Trophy className="w-5 h-5" />
+                <p className="text-muted-foreground text-sm">Leadership</p>
               </Link>
             </div>
 
@@ -113,6 +113,15 @@ export function AppBar() {
                           >
                             <LayoutDashboard className="w-4 h-4" />
                             Dashboard
+                          </Link>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem asChild>
+                          <Link
+                            href="/logs"
+                            className="flex items-center gap-2"
+                          >
+                            <LayoutDashboard className="w-4 h-4" />
+                            Logs
                           </Link>
                         </DropdownMenuItem>
                         <DropdownMenuItem asChild>
