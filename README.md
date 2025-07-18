@@ -1,4 +1,3 @@
-````markdown
 # 📝 Logs
 
 A full-stack logging application built with:
@@ -22,7 +21,6 @@ Follow the steps below to run the project locally.
 git clone https://github.com/hemanth-1321/logs
 cd logs
 ```
-````
 
 ---
 
@@ -53,26 +51,26 @@ NEXTAUTH_SECRET=your_random_secret_key
 ### 🚀 Start the Frontend
 
 ```bash
-npm run dev
+pnpm dev
 ```
 
 ---
 
-## ⚙️ Setup the Server (Backend)
+## 🛠️ Setup the Server (Backend)
 
 ```bash
 cd ../server
 pnpm install
 ```
 
-### 📝 Setup PostgreSQL
+### 🗄️ Setup PostgreSQL
 
 You have two options:
 
 #### Option 1: Use [Neon](https://neon.tech)
 
 - Sign up and create a new PostgreSQL instance.
-- Copy the connection string.
+- Copy the connection string and use it in your `.env`.
 
 #### Option 2: Use Docker Locally
 
@@ -90,31 +88,31 @@ Create a `.env` file in the `server/` directory:
 cp .env.example .env
 ```
 
-Then update the `.env` file with your values:
+Then update it with your values:
 
 ```env
 DATABASE_URL=postgresql://user:password@localhost:5432/logsdb?schema=public
 JWT_SECRET=your_jwt_secret
 ```
 
-> ⚠️ Make sure the database name and credentials match your local or Neon setup.
+> ⚠️ Ensure your database name, username, and password match your PostgreSQL setup.
 
 ---
 
 ### 🧱 Run Prisma Migrations
 
-````bash
+```bash
 pnpm db:migrate
+```
+
+---
+
+### 🖥️ Start the Backend Server
 
 ```bash
 pnpm dev
-
-## 🧰 Tech Stack
-
-- **Frontend**: Next.js, Tailwind CSS, TypeScript
-- **Backend**: Node.js, Prisma, JWT
-- **Database**: PostgreSQL (via Docker or Neon)
-- **Auth**: GitHub OAuth via NextAuth.js
+```
 
 ---
-````
+
+## 🧰
