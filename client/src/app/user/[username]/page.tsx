@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useSession } from "next-auth/react";
-import { BookOpen, Code, Flame, Github } from "lucide-react";
+import { BookOpen, Code, Flame } from "lucide-react";
 import { ActivityChart } from "@/components/ActivityChart";
 import {
   fetchUserActivity,

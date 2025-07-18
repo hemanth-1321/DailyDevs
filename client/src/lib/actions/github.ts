@@ -1,3 +1,8 @@
+type githubRepo = {
+  name: string;
+  html_url: string;
+};
+
 export const fetchTopLanguage = async (githubUsername: string) => {
   try {
     const res = await fetch(
@@ -29,7 +34,9 @@ export const fetchTopLanguage = async (githubUsername: string) => {
     return null;
   }
 };
-export const fetchRepos = async (githubUsername: string) => {
+export const fetchRepos = async (
+  githubUsername: string
+): Promise<githubRepo[]> => {
   try {
     const res = await fetch(
       `https://api.github.com/users/${githubUsername}/repos?per_page=100`
@@ -38,8 +45,8 @@ export const fetchRepos = async (githubUsername: string) => {
       throw new Error("Failed to fetch GitHub repos");
     }
 
-    const repos = await res.json();
-    return repos.map((repo: any) => ({
+    const repos: githubRepo[] = await res.json();
+    return repos.map((repo) => ({
       name: repo.name,
       html_url: repo.html_url,
     }));

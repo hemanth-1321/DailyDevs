@@ -29,7 +29,7 @@ const Page = () => {
     url: string;
   } | null>(null);
 
-  const { totalLogs, currentStreak, bestStreak } = useStreakStore();
+  const { totalLogs, bestStreak } = useStreakStore();
   const { data: session, status } = useSession();
 
   useEffect(() => {
@@ -72,6 +72,7 @@ const Page = () => {
       }
     } catch (error) {
       toast.error("Failed to post log");
+      throw error;
     } finally {
       setLoading(false);
     }

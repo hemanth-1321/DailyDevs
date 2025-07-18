@@ -90,7 +90,9 @@ const page = () => {
       </section>
 
       <section className="mb-6">
-        <h2 className="text-xl font-semibold mb-2">6. Children's Privacy</h2>
+        <h2 className="text-xl font-semibold mb-2">
+          6. Children&apos;s Privacy
+        </h2>
         <p>
           This service is not intended for children under 13, and we do not
           knowingly collect data from them.
@@ -102,8 +104,8 @@ const page = () => {
           7. Changes to This Policy
         </h2>
         <p>
-          We may update this policy from time to time. You'll be notified of
-          significant changes via email or in-app notification.
+          We may update this policy from time to time. You&rsquo;ll be notified
+          of significant changes via email or in-app notification.
         </p>
       </section>
 

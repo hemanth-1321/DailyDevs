@@ -14,7 +14,14 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import { LayoutDashboard, LogOut, Menu, Trophy, User } from "lucide-react";
+import {
+  LayoutDashboard,
+  LogOut,
+  Menu,
+  ScrollText,
+  Trophy,
+  User,
+} from "lucide-react";
 import { useRouter } from "next/navigation";
 import { AuroraText } from "./ui/AuroraText";
 
@@ -57,6 +64,13 @@ export function AppBar() {
               >
                 <Trophy className="w-5 h-5" />
                 <p className="text-muted-foreground text-sm">Leadership</p>
+              </Link>
+              <Link
+                href="/logs"
+                className="flex items-center space-x-2 transition-opacity hover:opacity-90"
+              >
+                <ScrollText className="w-5 h-5" />
+                <p className="text-muted-foreground text-sm">Logs</p>
               </Link>
             </div>
 

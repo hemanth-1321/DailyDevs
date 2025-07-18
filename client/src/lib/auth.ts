@@ -48,7 +48,7 @@ export const NEXT_AUTH_CONFIG: NextAuthOptions = {
       return session;
     },
 
-    async signIn({ user, account, profile }) {
+    async signIn() {
       return true;
     },
   },

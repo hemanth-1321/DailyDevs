@@ -24,7 +24,7 @@ const page = () => {
       </section>
 
       <section>
-        <h2 className="text-xl font-semibold mb-2">Who's Behind This</h2>
+        <h2 className="text-xl font-semibold mb-2">Who&rsquo;s Behind This</h2>
         <p>
           Built by passionate devs who love open-source, habit-building, and
           developer communities. You can contribute to the project or reach out
