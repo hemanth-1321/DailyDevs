@@ -1,6 +1,5 @@
-# 📝 Logs
+# DevLOgs
 
-A full-stack logging application built with:
 
 - **Frontend**: Next.js + Tailwind CSS
 - **Backend**: Node.js + Prisma
