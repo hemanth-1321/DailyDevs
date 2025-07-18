@@ -26,11 +26,10 @@ export const NEXT_AUTH_CONFIG: NextAuthOptions = {
         token.username = githubProfile.login;
         token.avatarUrl = githubProfile.avatar_url;
         token.accessToken = account.access_token;
-        token.role = "user"; // default role or from DB
-
+        token.role = "user";
         token.email = githubProfile.email;
 
-        console.log("🔑 JWT Token Created:", token);
+        // console.log(" JWT Token Created:", token);
       }
       return token;
     },
@@ -44,16 +43,12 @@ export const NEXT_AUTH_CONFIG: NextAuthOptions = {
       session.user.email = token.email || session.user.email || "";
       session.user.name = token.name || session.user.name || "";
       session.user.login = token.username || session.user.login || "";
-      console.log("📦 Session Created:", session);
+      // console.log("session Created:", session);
 
       return session;
     },
 
     async signIn({ user, account, profile }) {
-      console.log("🔐 Sign In - User:", user);
-      console.log("🔐 Sign In - Account:", account);
-      console.log("🔐 Sign In - Profile:", profile);
-
       return true;
     },
   },
