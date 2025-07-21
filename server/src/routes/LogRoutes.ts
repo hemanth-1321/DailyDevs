@@ -87,4 +87,31 @@ router.get("/userlogs", middleware, async (req, res) => {
     return res.status(500).json({ error: "Internal server error" });
   }
 });
+
+router.get("/allMetrics", async (req, res) => {
+  try {
+    const allMetrics = await db.userMetrics.findMany({
+      select: {
+        totalLogs: true,
+        bestStreak: true,
+        currentStreak: true,
+        user: {
+          select: {
+            id: true,
+            username: true,
+            githubId: true,
+            avatarUrl: true,
+          },
+        },
+      },
+      orderBy: {
+        currentStreak: "desc",
+      },
+    });
+    res.status(201).json(allMetrics);
+  } catch (error) {
+    console.error("Error fetching metrics:", error);
+    res.status(500).json({ error: "Something went wrong" });
+  }
+});
 export default router;
