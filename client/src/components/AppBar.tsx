@@ -24,7 +24,7 @@ import {
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { AuroraText } from "./ui/AuroraText";
-
+import { Skeleton } from "./ui/skeleton";
 export function AppBar() {
   const { data: session, status } = useSession();
   const router = useRouter();
@@ -44,7 +44,7 @@ export function AppBar() {
                 className="flex items-center space-x-2 transition-opacity hover:opacity-90"
               >
                 <span className="font-bold font-mono text-xl">
-                  100xDev<AuroraText>Logs</AuroraText>
+                  Dev<AuroraText>Logs</AuroraText>
                 </span>
               </Link>
             </div>
@@ -76,7 +76,9 @@ export function AppBar() {
 
             {/* Auth / Profile Section */}
             <div className="flex items-center gap-4">
-              {status === "loading" ? null : !session ? (
+              {status === "loading" ? (
+                <Skeleton className="h-12 w-12 rounded-full" />
+              ) : !session ? (
                 <Button
                   variant="default"
                   size="sm"

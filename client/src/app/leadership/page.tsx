@@ -46,8 +46,9 @@ const Page = () => {
     <div className="p-2 mt-20 md:p-10 md:m-10">
       <div className="min-h-screen dark:bg-[#171717] max-w-6xl mx-auto rounded-2xl">
         <h2 className="text-3xl font-bold text-center text-white mb-8">
-          🔥 Today's Leaderboard
+          🔥 Today&rsquo;s Leaderboard
         </h2>
+
         <Table>
           <TableCaption>Top contributors based on current streak.</TableCaption>
           <TableHeader>
