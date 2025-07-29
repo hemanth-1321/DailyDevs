@@ -44,7 +44,7 @@ export function AppBar() {
                 className="flex items-center space-x-2 transition-opacity hover:opacity-90"
               >
                 <span className="font-bold font-mono text-xl">
-                  Dev<AuroraText>Logs</AuroraText>
+                  Daily<AuroraText>Devs</AuroraText>
                 </span>
               </Link>
             </div>
@@ -65,13 +65,13 @@ export function AppBar() {
                 <ScrollText className="w-5 h-5" />
                 <p className="text-muted-foreground text-sm">Logs</p>
               </Link>
-              <Link
+              {/* <Link
                 href="/leadership"
                 className="flex items-center space-x-2 transition-opacity hover:opacity-90"
               >
                 <Trophy className="w-5 h-5" />
                 <p className="text-muted-foreground text-sm">Leadership</p>
-              </Link>
+              </Link> */}
             </div>
 
             {/* Auth / Profile Section */}
@@ -126,7 +126,7 @@ export function AppBar() {
                             Logs
                           </Link>
                         </DropdownMenuItem>
-                        <DropdownMenuItem asChild>
+                        {/* <DropdownMenuItem asChild>
                           <Link
                             href="/leadership"
                             className="flex items-center gap-2"
@@ -134,7 +134,7 @@ export function AppBar() {
                             <Trophy className="w-4 h-4" />
                             Leadership
                           </Link>
-                        </DropdownMenuItem>
+                        </DropdownMenuItem> */}
                       </DropdownMenuContent>
                     </DropdownMenu>
                   </div>

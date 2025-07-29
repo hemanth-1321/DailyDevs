@@ -2,6 +2,7 @@ import express from "express";
 import { createLogAndUpdateStreak } from "../controllers/Log.controller";
 import { middleware } from "../middleware";
 import { db } from "../config/db";
+import { redis } from "../config/redis";
 
 const router = express.Router();
 router.post("/log", middleware, async (req, res) => {
@@ -10,6 +11,7 @@ router.post("/log", middleware, async (req, res) => {
     return res.status(401).json({ error: "User ID missing from token" });
   }
   const { content, repositoryUrl, repository } = req.body;
+  console.log("📥 /log endpoint hit with body:", req.body);
   if (!content) {
     return res.status(401).json({
       message: "no content found",
@@ -33,11 +35,20 @@ router.post("/log", middleware, async (req, res) => {
 
 router.get("/metrics", middleware, async (req, res) => {
   const userId = req.user?.id;
+
   if (!userId) {
     return res.status(401).json({ error: "User ID missing from token" });
   }
+  const metricsCacheKey = `user_metrics:${userId}`;
 
   try {
+    const cachedMetrics = await redis.get(metricsCacheKey);
+    if (cachedMetrics) {
+      console.log("[Cache HIT] /metrics for user:", userId);
+      return res.status(200).json(JSON.parse(cachedMetrics));
+    }
+    console.log("[Cache MISS] /metrics fetching from DB for user:", userId);
+
     const userMetrics = await db.userMetrics.findFirst({
       where: {
         userId,
@@ -52,6 +63,20 @@ router.get("/metrics", middleware, async (req, res) => {
     if (!userMetrics) {
       return res.status(404).json({ error: "Metrics not found" });
     }
+    const secondsUntilMidnight = () => {
+      const now = new Date();
+      const midnight = new Date(now);
+      midnight.setHours(24, 0, 0, 0);
+      return Math.floor((midnight.getTime() - now.getTime()) / 1000);
+    };
+
+    await redis.set(
+      metricsCacheKey,
+      JSON.stringify(userMetrics),
+      "EX",
+      secondsUntilMidnight()
+    );
+
     return res.status(200).json(userMetrics);
   } catch (error) {
     console.error("Error fetching userMetrics:", error);

@@ -7,9 +7,6 @@ export const middleware = async (
   next: NextFunction
 ) => {
   const token = req.cookies.token;
-  console.log("cookie", req.cookies);
-  console.log("token", req.cookies.token);
-  console.log("cookie", req.body);
 
   if (!token) {
     res.status(401).json({
@@ -17,7 +14,6 @@ export const middleware = async (
     });
     return;
   }
-  console.log("recieved token", token);
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET!) as JwtPayload & {
@@ -26,7 +22,6 @@ export const middleware = async (
     };
 
     req.user = decoded;
-    console.log("token", req.user);
     next();
   } catch (error) {
     res.status(403).json({ error: "Invalid token" });

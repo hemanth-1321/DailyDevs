@@ -11,7 +11,7 @@ const PORT = process.env.PORT || 8000;
 app.use(express.json());
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: ["http://localhost:3000", "http://localhost:3001"],
     credentials: true,
   })
 );
@@ -22,11 +22,6 @@ app.get("/", (req, res) => {
 app.use("/api/auth", AuthRoute);
 app.use("/api/logs", LogRoutes);
 app.use("/api/activity", ActivityRoute);
-
-app.get("/api/check", (req, res) => {
-  console.log("Cookies on request:", req.cookies);
-  res.send("Check console for cookies");
-});
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

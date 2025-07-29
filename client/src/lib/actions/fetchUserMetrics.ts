@@ -4,7 +4,7 @@ import { BACKEND_URL } from "../config";
 export const fetchusermetrics = async () => {
   try {
     const res = await axios.get(`${BACKEND_URL}/api/logs/metrics`, {
-      withCredentials: true, // ✅ important for cookie-based auth
+      withCredentials: true,
     });
     return res.data; // { totalLogs, currentStreak, bestStreak }
   } catch (error) {
