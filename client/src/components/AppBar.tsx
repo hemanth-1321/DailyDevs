@@ -25,13 +25,14 @@ import {
 import { useRouter } from "next/navigation";
 import { AuroraText } from "./ui/AuroraText";
 import { Skeleton } from "./ui/skeleton";
+
 export function AppBar() {
   const { data: session, status } = useSession();
   const router = useRouter();
 
   return (
     <div className="bg-black">
-      <header className="fixed top-0 z-50 w-full p-2 h-[72px]">
+      <header className="fixed top-0 z-50 w-full p-2 h-[70px]">
         <div
           className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 rounded-2xl bg-background/95 border border-neutral-200 dark:border-neutral-700 shadow-lg transform-gpu"
           style={{ transform: "translateZ(0)", backfaceVisibility: "hidden" }}
@@ -65,30 +66,27 @@ export function AppBar() {
                 <ScrollText className="w-5 h-5" />
                 <p className="text-muted-foreground text-sm">Logs</p>
               </Link>
-              {/* <Link
-                href="/leadership"
-                className="flex items-center space-x-2 transition-opacity hover:opacity-90"
-              >
-                <Trophy className="w-5 h-5" />
-                <p className="text-muted-foreground text-sm">Leadership</p>
-              </Link> */}
             </div>
 
             {/* Auth / Profile Section */}
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-4 h-[60px]">
               {status === "loading" ? (
-                <Skeleton className="h-12 w-12 rounded-full" />
+                <Skeleton className="h-10 w-10 rounded-full" />
               ) : !session ? (
-                <Button
-                  variant="default"
-                  size="sm"
-                  className="cursor-pointer relative overflow-hidden bg-gradient-to-r from-neutral-800 to-neutral-900 text-white dark:from-neutral-700 dark:to-neutral-800 border border-neutral-600 dark:border-neutral-700 rounded-lg shadow-md shadow-neutral-800/20 dark:shadow-black/30 px-4 py-2 font-medium tracking-wide transition-all duration-300 ease-in-out hover:shadow-lg hover:scale-[1.02] hover:from-neutral-700 hover:to-neutral-900 dark:hover:from-neutral-600 dark:hover:to-neutral-750"
-                  onClick={() => signIn("github", { callbackUrl: "/register" })}
-                >
-                  <span>Sign In</span>
-                </Button>
+                <div className="flex items-center h-full">
+                  <Button
+                    variant="default"
+                    size="sm"
+                    className="cursor-pointer relative overflow-hidden bg-gradient-to-r from-neutral-800 to-neutral-900 text-white dark:from-neutral-700 dark:to-neutral-800 border border-neutral-600 dark:border-neutral-700 rounded-lg shadow-md shadow-neutral-800/20 dark:shadow-black/30 px-4 py-1.5 font-medium tracking-wide transition-all duration-300 ease-in-out hover:shadow-lg hover:scale-[1.02] hover:from-neutral-700 hover:to-neutral-900 dark:hover:from-neutral-600 dark:hover:to-neutral-750"
+                    onClick={() =>
+                      signIn("github", { callbackUrl: "/register" })
+                    }
+                  >
+                    <span>Sign In</span>
+                  </Button>
+                </div>
               ) : (
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 h-full">
                   {/* Mobile Menu */}
                   <div className="md:hidden relative">
                     <DropdownMenu modal={false}>
@@ -126,15 +124,6 @@ export function AppBar() {
                             Logs
                           </Link>
                         </DropdownMenuItem>
-                        {/* <DropdownMenuItem asChild>
-                          <Link
-                            href="/leadership"
-                            className="flex items-center gap-2"
-                          >
-                            <Trophy className="w-4 h-4" />
-                            Leadership
-                          </Link>
-                        </DropdownMenuItem> */}
                       </DropdownMenuContent>
                     </DropdownMenu>
                   </div>
@@ -142,8 +131,8 @@ export function AppBar() {
                   {/* Profile Dropdown */}
                   <DropdownMenu modal={false}>
                     <DropdownMenuTrigger asChild>
-                      <div className="flex items-center gap-1 cursor-pointer p-2 transform-gpu">
-                        <Avatar className="w-10 h-10">
+                      <div className="flex items-center gap-1 cursor-pointer h-full px-2 transform-gpu">
+                        <Avatar className="w-8 h-8">
                           <AvatarImage src={session.user.avatarUrl} />
                           <AvatarFallback />
                         </Avatar>
@@ -158,7 +147,7 @@ export function AppBar() {
                     >
                       <DropdownMenuLabel>
                         <div className="flex items-center gap-3 p-2">
-                          <Avatar className="w-10 h-10">
+                          <Avatar className="w-8 h-8">
                             <AvatarImage src={session.user.avatarUrl} />
                             <AvatarFallback />
                           </Avatar>

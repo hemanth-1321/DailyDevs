@@ -20,6 +20,7 @@ import { Flame, GithubIcon, GitMerge, TrendingUp } from "lucide-react";
 import { useStreakStore } from "@/lib/store/streakStore";
 import { BorderBeam } from "@/components/ui/border-beam";
 import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
 const Page = () => {
   const [content, setContent] = useState("");
   const [loading, setLoading] = useState(false);
@@ -31,6 +32,7 @@ const Page = () => {
 
   const { totalLogs, bestStreak } = useStreakStore();
   const { data: session, status } = useSession();
+  const router = useRouter();
 
   useEffect(() => {
     if (status === "authenticated" && session?.user?.login) {
@@ -78,6 +80,20 @@ const Page = () => {
     }
   };
 
+  if (status === "loading") {
+    return (
+      <div className="h-screen w-full flex items-center justify-center bg-background">
+        <p className="text-xl font-semibold text-muted-foreground border border-border rounded-xl px-6 py-4 shadow-md bg-card">
+          ⏳ Loading session...
+        </p>
+      </div>
+    );
+  }
+
+  if (status === "unauthenticated") {
+    toast.warning("Please Login");
+    router.replace("/");
+  }
   return (
     <main className="max-w-6xl mx-auto w-full px-4 py-10 space-y-10 mt-20">
       <motion.div
