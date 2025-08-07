@@ -3,7 +3,7 @@
 A developer productivity & logging platform
 Log your daily development activities, maintain a history, and track your coding streaks.
 
-![Mocky Screenshot](./public/image.png)
+![Mocky Screenshot](./public/Image.png)
 
 - **Frontend**: Next.js + Tailwind CSS
 - **Backend**: Node.js + Prisma,Redis for caching
