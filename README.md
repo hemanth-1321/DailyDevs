@@ -1,8 +1,12 @@
-# DevLOgs
+# DailyDevs
 
+A developer productivity & logging platform
+Log your daily development activities, maintain a history, and track your coding streaks.
+
+![Mocky Screenshot](./public/image.png)
 
 - **Frontend**: Next.js + Tailwind CSS
-- **Backend**: Node.js + Prisma
+- **Backend**: Node.js + Prisma,Redis for caching
 - **Database**: PostgreSQL
 - **Auth**: GitHub OAuth with NextAuth.js
 
@@ -89,10 +93,12 @@ cp .env.example .env
 
 Then update it with your values:
 
-```env
+````env
 DATABASE_URL=postgresql://user:password@localhost:5432/logsdb?schema=public
 JWT_SECRET=your_jwt_secret
-```
+REDIS_URL= "redis://:devpassword@127.0.0.1:6379"
+
+GEMINI_API_KEY=your_api_key
 
 > ⚠️ Ensure your database name, username, and password match your PostgreSQL setup.
 
@@ -102,7 +108,7 @@ JWT_SECRET=your_jwt_secret
 
 ```bash
 pnpm db:migrate
-```
+````
 
 ---
 
