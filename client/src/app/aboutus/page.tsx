@@ -9,7 +9,7 @@ const page = () => {
         <p>
           <strong>DailyDev</strong> is a daily developer logging platform
           designed to help developers track their progress, stay consistent, and
-          grow their coding habits. Whether you're learning to code, working on
+          grow their coding habits. Whether you&#39;re learning to code, working on
           open source, or building your dream project — this helps you stay accountable.
         </p>
       </section>
@@ -19,7 +19,7 @@ const page = () => {
         <p>
           Developers often struggle with consistency and progress tracking.
           <strong> DailyDev</strong> was built to give you a simple space to log your day,
-          reflect on what you’ve built, and build momentum — one commit at a time.
+          reflect on what you&#39;ve built, and build momentum — one commit at a time.
         </p>
       </section>
 
@@ -42,8 +42,8 @@ const page = () => {
       <section>
         <h2 className="text-xl font-semibold mb-2">About the Creator</h2>
         <p>
-          Hi, I’m Hemanth Kumar M — a self-taught full-stack developer who loves building
-          clean systems, open-source projects, and tools that help other devs. I’m actively
+          Hi, I&#39;m Hemanth Kumar M — a self-taught full-stack developer who loves building
+          clean systems, open-source projects, and tools that help other devs. I&#39;m actively
           exploring the intersection of infra and AI tools.
         </p>
         <p className="mt-2">
