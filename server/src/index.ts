@@ -9,16 +9,24 @@ const app = express();
 const PORT = process.env.PORT || 8000;
 
 app.use(express.json());
+const allowedOrigins = [
+  process.env.FRONTEND_URL || "http://localhost:3000",
+  "https://logs-ashy.vercel.app",
+];
+
 app.use(
   cors({
-    origin: [
-      "http://localhost:3000",
-      "http://localhost:3001",
-      "https://logs-ashy.vercel.app/",
-    ],
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     credentials: true,
   })
 );
+
 app.use(cookieParser());
 app.get("/", (req, res) => {
   res.send("Hello, Express!");
