@@ -111,10 +111,11 @@ const Page = () => {
                   <Button
                     onClick={handleSubmit}
                     disabled={loading}
-                    className="w-full md:w-auto dark:bg-[#1f2937] dark:text-white hover:dark:bg-[#374151] transition-colors"
+                    className="cursor-pointer w-full md:w-auto dark:bg-[#1f2937] dark:text-white hover:dark:bg-[#374151] transition-all duration-300  "
                   >
                     {loading ? "Submitting..." : "Submit Log"}
                   </Button>
+
 
                   {/* GitHub repos for mobile */}
                   <div className="w-full md:w-1/2 space-y-2 block md:hidden">
@@ -228,38 +229,37 @@ const Page = () => {
             </section>
 
             {/* GitHub Contribution Chart */}
-           {
-  session ? (
-    <section className="p-6 sm:p-8 dark:bg-[#1e293b] border border-[#334155] rounded-2xl shadow-md mt-10">
-      <h2 className="text-2xl font-bold text-center mb-6">
-        🟩 GitHub Contribution Chart
-      </h2>
+            {
+              session ? (
+                <section className="p-6 sm:p-8 dark:bg-[#1e293b] border border-[#334155] rounded-2xl shadow-md mt-10">
+                  <h2 className="text-2xl font-bold text-center mb-6">
+                    🟩 GitHub Contribution Chart
+                  </h2>
 
-      {session.user?.login ? (
-        <img
-          src={`https://ghchart.rshah.org/${session.user.login}`}
-          alt="GitHub contribution chart"
-          className="mx-auto w-full max-w-full sm:max-w-2xl border border-[#334155] rounded-lg shadow-inner p-2 bg-[#0f172a]"
-        />
-      ) : (
-        <p className="text-center text-sm text-[#94a3b8]">
-          Sign in to see your contribution chart
-        </p>
-      )}
-    </section>
-  ) : (
-    // Skeleton while session is loading or null
-    <section className="p-6 sm:p-8 dark:bg-[#1e293b] border border-[#334155] rounded-2xl shadow-md mt-10">
-      <h2 className="text-2xl font-bold text-center mb-6">
-        🟩 GitHub Contribution Chart
-      </h2>
-      <div className="mx-auto w-full max-w-full sm:max-w-2xl">
-        <Skeleton className="h-[100px] w-full rounded-lg" />
-      </div>
-    </section>
-  )
-}
-
+                  {session.user?.login ? (
+                    <img
+                      src={`https://ghchart.rshah.org/${session.user.login}`}
+                      alt="GitHub contribution chart"
+                      className="mx-auto w-full max-w-full sm:max-w-2xl border border-[#334155] rounded-lg shadow-inner p-2 bg-[#0f172a]"
+                    />
+                  ) : (
+                    <p className="text-center text-sm text-[#94a3b8]">
+                      Sign in to see your contribution chart
+                    </p>
+                  )}
+                </section>
+              ) : (
+                // Skeleton while session is loading or null
+                <section className="p-6 sm:p-8 dark:bg-[#1e293b] border border-[#334155] rounded-2xl shadow-md mt-10">
+                  <h2 className="text-2xl font-bold text-center mb-6">
+                    🟩 GitHub Contribution Chart
+                  </h2>
+                  <div className="mx-auto w-full max-w-full sm:max-w-2xl">
+                    <Skeleton className="h-[200px] w-full rounded-lg" />
+                  </div>
+                </section>
+              )
+            }
           </div>
         </div>
         <div className="absolute inset-0 pointer-events-none z-0">
