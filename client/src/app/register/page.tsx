@@ -28,8 +28,27 @@ export default function RegisterPage() {
     }
   }, [session, registered]);
 
-  if (status === "loading") return <p>Loading session...</p>;
-  if (!session) return <p>Please sign in</p>;
+  if (status === "loading") {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <p className="text-muted-foreground text-sm">Checking session...</p>
+      </div>
+    );
+  }
 
-  return <p>Registering with backend...</p>;
+  if (!session) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <p className="text-muted-foreground text-sm">Please sign in to continue.</p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen flex items-center justify-center">
+      <div className="text-center">
+        <p className="text-sm text-muted-foreground">Registering you with the backend...</p>
+      </div>
+    </div>
+  );
 }
