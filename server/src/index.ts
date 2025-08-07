@@ -11,7 +11,11 @@ const PORT = process.env.PORT || 8000;
 app.use(express.json());
 app.use(
   cors({
-    origin: ["http://localhost:3000", "http://localhost:3001"],
+    origin: [
+      "http://localhost:3000",
+      "http://localhost:3001",
+      "https://logs-ashy.vercel.app/",
+    ],
     credentials: true,
   })
 );
