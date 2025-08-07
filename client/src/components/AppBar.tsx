@@ -33,10 +33,10 @@ export function AppBar() {
     <div className="bg-black">
       <header className="fixed top-0 z-50 w-full p-2 h-[72px]">
         <div
-          className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 rounded-2xl bg-background/95 border border-neutral-200 dark:border-neutral-700 shadow-lg transform-gpu"
+          className=" h-full mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 rounded-2xl bg-background/95 border border-neutral-200 dark:border-neutral-700 shadow-lg transform-gpu"
           style={{ transform: "translateZ(0)", backfaceVisibility: "hidden" }}
         >
-          <div className="flex h-full items-center justify-between">
+          <div className="flex h-full items-center justify-between ">
             {/* Logo */}
             <div>
               <Link
