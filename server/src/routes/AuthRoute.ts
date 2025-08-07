@@ -37,7 +37,7 @@ router.post("/register", async (req, res) => {
         res.cookie("token", jwtToken, {
           httpOnly: true,
           secure: process.env.NODE_ENV === "production",
-          sameSite: "strict",
+          sameSite: "lax",
           maxAge: 7 * 24 * 60 * 60 * 1000,
         });
         console.log("Set-Cookie:", res.getHeaders()["set-cookie"]);
