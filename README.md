@@ -21,7 +21,7 @@ Follow the steps below to run the project locally.
 ## 🔁 Clone the Repository
 
 ```bash
-git clone https://github.com/hemanth-1321/logs
+git clone https://github.com/hemanth-1321/DailyDevs.git
 cd logs
 ```
 

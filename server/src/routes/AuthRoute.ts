@@ -66,10 +66,11 @@ router.post("/register", async (req, res) => {
 
     res.cookie("token", jwtToken, {
       httpOnly: true,
-      secure: false,
-      sameSite: "lax",
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "none",
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
+
     console.log("✅ Set-Cookie Header:", res.getHeader("Set-Cookie"));
     res.status(201).json({ user: newUser });
   } catch (error) {
