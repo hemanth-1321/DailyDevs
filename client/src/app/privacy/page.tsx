@@ -4,7 +4,7 @@ const page = () => {
   return (
     <div className="mt-20 px-4 py-8 max-w-3xl mx-auto ">
       <h1 className="text-3xl font-bold mb-4">
-        Privacy Policy for 100xDevLogs
+        Privacy Policy for DailyDevs
       </h1>
       <p className="text-sm text-gray-500 mb-6">
         Effective Date:{" "}
@@ -113,7 +113,7 @@ const page = () => {
         <h2 className="text-xl font-semibold mb-2">8. Contact Us</h2>
         <p>
           Have questions or concerns? Contact us at:{" "}
-          <strong>h100xdevs@gmail.com</strong>
+          <strong>hemanth02135@gmail.com</strong>
         </p>
       </section>
     </div>

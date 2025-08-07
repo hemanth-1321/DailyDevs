@@ -1,4 +1,5 @@
 import { db } from "../config/db";
+import { RefactoredContent } from "./llm";
 
 export const createLogAndUpdateStreak = async (
   userId: string,
@@ -22,11 +23,14 @@ export const createLogAndUpdateStreak = async (
         },
       },
     });
-
+    const refinedContent = await RefactoredContent(content);
+    if (!refinedContent) {
+      throw Error("content not found");
+    }
     const log = await db.log.create({
       data: {
         userId,
-        content,
+        content: refinedContent,
         repository,
         repositoryUrl,
       },

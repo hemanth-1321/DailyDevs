@@ -19,7 +19,6 @@ import {
   LogOut,
   Menu,
   ScrollText,
-  Trophy,
   User,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -50,7 +49,7 @@ export function AppBar() {
             </div>
 
             {/* Desktop Navigation */}
-            <div className="hidden md:flex gap-4">
+            {session&&<div className="hidden md:flex gap-4">
               <Link
                 href="/dashboard"
                 className="flex items-center space-x-2 transition-opacity hover:opacity-90"
@@ -72,7 +71,7 @@ export function AppBar() {
                 <Trophy className="w-5 h-5" />
                 <p className="text-muted-foreground text-sm">Leadership</p>
               </Link> */}
-            </div>
+            </div>}
 
             {/* Auth / Profile Section */}
             <div className="flex items-center gap-4">
@@ -90,7 +89,7 @@ export function AppBar() {
               ) : (
                 <div className="flex items-center gap-2">
                   {/* Mobile Menu */}
-                  <div className="md:hidden relative">
+                 {session&& <div className="md:hidden relative">
                     <DropdownMenu modal={false}>
                       <DropdownMenuTrigger asChild>
                         <Button
@@ -137,7 +136,7 @@ export function AppBar() {
                         </DropdownMenuItem> */}
                       </DropdownMenuContent>
                     </DropdownMenu>
-                  </div>
+                  </div>}
 
                   {/* Profile Dropdown */}
                   <DropdownMenu modal={false}>

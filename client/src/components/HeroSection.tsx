@@ -1,8 +1,12 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { signIn, useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 export function HeroSection() {
+  const {  status } = useSession();
+  const router=useRouter()
   return (
     <div className="relative mx-auto my-10 flex max-w-7xl flex-col items-center justify-center">
       
@@ -37,7 +41,7 @@ export function HeroSection() {
           transition={{ duration: 0.3, delay: 0.8 }}
           className="relative z-10 mx-auto max-w-xl py-4 text-center text-lg font-normal text-neutral-600 dark:text-neutral-400"
         >
-          100xDevLog helps developers document, reflect, and grow. Log daily
+          DailyDevs helps developers document, reflect, and grow. Log daily
           progress, commit thoughts, and build a personal dev history powered by
           clarity and discipline.
         </motion.p>
@@ -49,9 +53,24 @@ export function HeroSection() {
           transition={{ duration: 0.3, delay: 1 }}
           className="relative z-10 mt-8 flex flex-wrap items-center justify-center gap-4"
         >
-          <button className="w-60 transform rounded-lg bg-black px-6 py-2 font-medium text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-gray-200">
-            Start Logging
-          </button>
+          {
+  status === "unauthenticated" ? (
+    <button
+      className="w-60 transform rounded-lg bg-gray-200 px-6 py-2 font-medium text-black transition-all duration-300 hover:-translate-y-0.5 hover:bg-gray-300 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
+      onClick={() => signIn()} // if using NextAuth
+    >
+      Sign in to Start Logging
+    </button>
+  ) : (
+                <button
+                   onClick={() =>router.replace("/dashboard") }
+      className="w-60 transform rounded-lg bg-black px-6 py-2 font-medium text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-gray-200"
+    >
+      Start Logging
+    </button>
+  )
+}
+
           <button className="w-60 transform rounded-lg border border-gray-300 bg-white px-6 py-2 font-medium text-black transition-all duration-300 hover:-translate-y-0.5 hover:bg-gray-100 dark:border-gray-700 dark:bg-black dark:text-white dark:hover:bg-gray-900">
             Read the Docs
           </button>

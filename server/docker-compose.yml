@@ -1,0 +1,17 @@
+version: "3.8"
+
+services:
+  valkey:
+    image: bitnami/valkey:8.0
+    container_name: my-valkey
+    ports:
+      - "6379:6379"
+    environment:
+      - VALKEY_PASSWORD=devpassword
+      - VALKEY_PROTECTED_MODE=yes
+
+    volumes:
+      - valkey-data:/bitnami/valkey
+
+volumes:
+  valkey-data:
